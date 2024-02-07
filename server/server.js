@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser')
 const {StatusCodes} = require('http-status-codes')
 const PORT = process.env.PORT
 const connectDb = require('./db/connect')
-const expressFileUpoload = require('express-fileupload')
 
 // instance
 const app = express()
@@ -19,13 +18,11 @@ app.use(express.static("public"))
 // middleware
 app.use(cors())// cross origin resource sharing
 app.use(cookieParser(process.env.ACCESS_SECRET))
-app.use(expressFileUpoload({
-    limits: { fileSize : 10 * 1024 * 1024 },
-    useTempFiles : true
-}))
+
 
 // api route
 app.use(`/api/auth`, require('./route/authRoute'))
+app.use(`/api/doctor`, require('./route/doctorRoute'))
 
 // default route
 app.use(`**`, (req, res) => {

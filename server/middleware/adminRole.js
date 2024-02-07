@@ -1,18 +1,22 @@
 const { StatusCodes } = require('http-status-codes')
 const User = require('../model/userModel')
+const Doctor = require('../model/doctorModel')
 
 const adminAuth = async (req, res, next) => {
     try {
         let userId = req.userId
         let extUser = await User.findById(userId)
+        let extDoctor = await Doctor.findById(userId)
 
         // validate the user
         if(!extUser)
-            return res.status(StatusCodes.CONFLICT).json({ msg : `requested admin info not exists.`, success : false })
+            return res.status(StatusCodes.CONFLICT).json({ msg : `requested user info not exists.`, success : false })
+        if(!extDoctor)
+        return res.status(StatusCodes.CONFLICT).json({ msg : `requested user info not exists.`, success : false })
 
         if(extUser.role !== "admin")
-            return res.status(StatusCodes.UNAUTHORIZED).json({ msg : `Unauthoried requested admin info not exists.`, success : false })
-
+            return res.status(StatusCodes.UNAUTHORIZED).json({ msg : `Unauthoried requested user info not exists.`, success : false })
+        
             next()
 
         return res.json({ msg : extUser })

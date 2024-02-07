@@ -20,7 +20,7 @@ const App = () => {
         <ToastContainer autoClose={4000} position={'top-right'}/>
         <Routes>
         <Route element={<PrivateRoute />}>
-          <Route path='/' element={<Home></Home>}></Route>
+          <Route path='/' element={<Home/>}></Route>
         </Route>
 
         <Route exact path={`/password/reset`} element={isLogin? <Navigate to={`/`}/>: <ResetPassword/>} />
