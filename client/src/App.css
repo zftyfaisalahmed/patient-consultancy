@@ -36,3 +36,33 @@
     transform: rotate(360deg);
   }
 }
+
+
+.row-middle {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+.home-banner {
+  background: url(https://medifab-react.dreamstechnologies.com/blue/93d9d69115d37ba6a74960f216f24146.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 80vh;
+  position: relative;
+}
+.section {
+  padding: 80px 0;
+}
+.inner-bg {
+  background-color: rgba(46, 119, 250, 0.2);
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.hello{
+  font-size: 43px;
+}

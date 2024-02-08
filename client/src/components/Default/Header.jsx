@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../components/Context/AuthContext'
 import axios from 'axios'
@@ -6,16 +6,34 @@ import { toast } from 'react-toastify';
 
 const url = "http://localhost:4500"
 
+const RELOAD_PAGE_CONDITION = false;
+
 const Header = () => {
 
     const { isAdmin, isUser, isLogin, currentUser, token, setToken, setIsAdmin, setIsUser, setIsLogin, setCurrentUser } = useContext(AuthContext)
 
+    const [pageReloaded, setPageReloaded] = useState(false);
+
     // const navigate = useNavigate()
+    const reloadPageOnce = () => {
+      if (pageReloaded && RELOAD_PAGE_CONDITION) {
+        // Reload the page if the condition is true and it hasn't been reloaded yet
+        window.location.reload();
+        setPageReloaded(true);
+      }
+    };
+  
+    useEffect(() => {
+      reloadPageOnce();
+    }, []);
+    // useEffect(() => {
+    //   if (!pageReloaded) {
+    //     // Reload the page if the condition is true
+    //     setPageReloaded(true);
 
-    function reloadPage(){
-      
-
-    }
+    //     // window.location.reload();
+    //   }
+    // }, []);
 
     const logoutHandler = async () =>{
         if(window.confirm(`Are you sure to logout`)){
@@ -28,7 +46,7 @@ const Header = () => {
             setToken(false)
             setIsLogin(false)
             setIsUser(false)
-            setIsAdmin(true)
+            setIsAdmin(false)
             setCurrentUser(false)
         })
         .catch(err => toast.error(err.response.data.msg))
@@ -38,7 +56,7 @@ const Header = () => {
     }
   return (
     <header>
-      <nav className={isLogin ? "navbar navbar-expand-md navbar-dark bg-primary" : "navbar navbar-expand-md navbar-dark bg-secondary"}>
+      <nav className={isLogin ? "navbar navbar-expand-md navbar-dark bg-primary" : "navbar navbar-expand-md navbar-dark bg-primary bg-opacity-75"}>
         <div className="container">
             <NavLink to={'/'} className='navbar-brand'>DOCTOR CONSULTANCY</NavLink>
             <button type='button' className='navbar-toggler' data-bs-toggle='collapse' data-bs-target='#menu'>
