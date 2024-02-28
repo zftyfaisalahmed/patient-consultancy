@@ -11,31 +11,26 @@ const mailConfig = require('../util/mail.Config')
 const authController = {
     register : async (req , res) => {
         try {
-            const { name, email, mobile, password, role } = req.body;
+            const { name, email, mobile, gender, problem } = req.body;
 
             //email
             const extEmail = await User.findOne({email})
-            const extMobile = await User.findOne({mobile})
 
             // point duplicates, any server response error 409
             if(extEmail)
                 return res.status(StatusCodes.CONFLICT).json({msg: `${email} already exists` ,success : false})
-            
-            if(extMobile)
-                return res.status(StatusCodes.CONFLICT).json({msg: `${email} already exists`,success : false})
 
-
-            const encPass = await bcrypt.hash(password,10)
+            // const encPass = await bcrypt.hash(password,10)
 
             let data = await User.create({
                 name,
                 email,
                 mobile,
-                role,
-                password: encPass
+                gender,
+                problem
             })
 
-            res.status(StatusCodes.ACCEPTED).json({msg: "new user registered success", user: data, success : true })
+            res.status(StatusCodes.ACCEPTED).json({msg: "Appointment Booked", user: data, success : true })
         } catch (err) {
             return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg : err.message ,success : false})    
         }
