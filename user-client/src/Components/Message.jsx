@@ -4,7 +4,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import tick from '../images/tick.png'
 
-const url = "http://localhost:5000"
+const url = "http://localhost:5001"
 
 const Message = () => {
     const params = useParams()

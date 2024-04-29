@@ -10,6 +10,7 @@ function PatientCheck() {
     const [patient, setPatient] = useState({})
     const [report, setReport] = useState({})
     const navigate = useNavigate()
+    
     useEffect(()=>{
         const singlePatient = async () =>{
         await axios.get(`${url}/api/user/single/${id}`)
@@ -27,7 +28,7 @@ function PatientCheck() {
 
     },[])
 
-    const updateReport = async()=>{
+    const updateReport = async() => {
         await 
         axios.delete(`${url}/api/user/delete/${report.data._id}`, report)
         console.log("report1", report.data)
